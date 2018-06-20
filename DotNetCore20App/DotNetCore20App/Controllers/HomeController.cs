@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SampleClientApp.Models;
+using DotNetCore20App.Models;
 
-namespace SampleClientApp.Controllers
+namespace DotNetCore20App.Controllers
 {
     public class HomeController : Controller
     {

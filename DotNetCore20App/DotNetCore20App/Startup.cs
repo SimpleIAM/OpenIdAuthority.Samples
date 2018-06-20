@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SampleClientApp
+namespace DotNetCore20App
 {
     public class Startup
     {
@@ -41,13 +37,18 @@ namespace SampleClientApp
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.SignInScheme = "Cookies";
-
-                    options.Authority = "https://id.demos.simpleiam.com"; // "http://localhost:5100";
+                    options.ClientId = "dotnetcore20app";
+                    options.Authority = "https://localhost:5101"; // "https://id.demos.simpleiam.com";
                     options.RequireHttpsMetadata = !_env.IsDevelopment();
                     options.ResponseType = "code";
                     options.ClientSecret = "put dev secret in user secrets file";
-
-                    options.ClientId = "dot-net-core-sample-local";
+                    options.Scope.Clear();
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+                    options.Scope.Add("example.scope");
+                    options.ClaimActions.MapUniqueJsonKey("email", "email");
+                    
                     options.SaveTokens = true;
                 });
         }
